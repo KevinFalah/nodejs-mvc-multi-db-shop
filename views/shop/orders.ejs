@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/order.css">
+
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <% if (orders.length <= 0) { %>
+                <h1>Nothing there!</h1>
+            <% } else { %>
+                <ul>
+                    <% orders.forEach(order => { %>
+                        <li class="card-list">
+                            <h1 class="id-title"># <%= order._id %></h1>
+                            <div class="d-flex">
+                                <span><%= formatDate(order?.createdAt || "") %></span>
+                                <b>Total: $<%= order.totalPrice %></b>
+                            </div>
+                            <ul class="list">
+                                <% order.items.forEach(product => { %>
+                                    <li><%= product.title %> (qty: <%= product.quantity %>) <b>$<%= product.price * product.quantity %></b></li>
+                                <% }); %>
+                            </ul>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </main>
+        <%- include('../includes/end.ejs') %>

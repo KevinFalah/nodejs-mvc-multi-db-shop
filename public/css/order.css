@@ -1,0 +1,21 @@
+.card-list {
+    border: .1px solid rgba(0, 0, 0, 0.219);
+    border-radius: 8px;
+    padding: 13px 17px;
+    max-width: 500px;
+    margin-bottom: 15px;
+}
+
+.id-title {
+    margin: 0px;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list {
+    margin-top: 7px;
+}
