@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 
 const errorController = require("./controllers/error");
 
-const mongoConnect = require("./util/database").mongoConnect;
+const mongoose = require("mongoose");
+// const mongoConnect = require("./util/database").mongoConnect;
 
 // const sequelize = require('./util/database');
 // const Product = require('./models/product');
@@ -23,18 +24,19 @@ app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
+const { uri } = require("./util/database");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use((req, res, next) => {
-  User.findUserById('69141235f4296885cd3613b9')
-    .then(user => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
-      next();
-    })
-    .catch(err => console.log(err));
-});
+// app.use((req, res, next) => {
+//   User.findUserById("69141235f4296885cd3613b9")
+//     .then((user) => {
+//       req.user = new User(user.name, user.email, user.cart, user._id);
+//       next();
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
@@ -75,21 +77,13 @@ app.use(shopRoutes);
 //     console.log(err);
 //   });
 
-mongoConnect(() => {
-  // const exampleId = '690869038fc7f8fb5e2e462a'
-  // User.findUserById(exampleId)
-  //   .then((user) => {
-  //     if (!user) {
-  //       const user = new User("user", "email@mail.com");
-  //       return user.addUser();
-  //     }
-  //     return user
-  //   })
-  //   .then((user) => {
-  //     app.listen(port);
-  //   })
-  //   .catch((err) => console.log(err, '<-er'));
+// mongoConnect(() => {
+//   app.listen(port)
+// });
 
-
-  app.listen(port)
-});
+mongoose
+  .connect(uri)
+  .then(() => {
+    app.listen(port);
+  })
+  .catch((err) => console.log("Failed connect ", err));

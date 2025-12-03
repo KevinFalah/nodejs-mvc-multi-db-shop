@@ -14,7 +14,7 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.description;
 
-  const product = new Product(title, price, description, imageUrl, null, req.user._id);
+  const product = new Product({ title, imageUrl, price, description });
 
   product
     .save()
@@ -24,6 +24,7 @@ exports.postAddProduct = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 
+  //! Sequelize
   // req.user
   //   .createProduct({
   //     title: title,
@@ -116,7 +117,7 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.findAll()
+  Product.find()
     .then((products) => {
       res.render("admin/products", {
         prods: products,
