@@ -14,7 +14,13 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.description;
 
-  const product = new Product({ title, imageUrl, price, description });
+  const product = new Product({
+    title,
+    imageUrl,
+    price,
+    description,
+    userId: req.user,
+  });
 
   product
     .save()
@@ -86,16 +92,17 @@ exports.postEditProduct = (req, res, next) => {
   const updatedImageUrl = req.body.imageUrl?.trim();
   const updatedDesc = req.body.description?.trim();
 
-  Product.findById(prodId).then((product) => {
-    product.title = updatedTitle;
-    product.price = updatedPrice;
-    product.imageUrl = updatedImageUrl;
-    product.updatedDesc = updatedDesc;
+  Product.findById(prodId)
+    .then((product) => {
+      product.title = updatedTitle;
+      product.price = updatedPrice;
+      product.imageUrl = updatedImageUrl;
+      product.updatedDesc = updatedDesc;
 
-    product.save();
-  })
+      product.save();
+    })
     .then(() => {
-      console.log('UPDATED PRODUCT!');
+      console.log("UPDATED PRODUCT!");
       res.redirect("/admin/products");
     })
     .catch((err) => console.log(err));

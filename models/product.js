@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const ProductSchema = new schema({
+const ProductSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -9,10 +9,15 @@ const ProductSchema = new schema({
   price: Number,
   imageUrl: String,
   description: String,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 
 module.exports = mongoose.model('Product', ProductSchema);
+
 // const Sequelize = require('sequelize');
 // const sequelize = require('../util/database');
 

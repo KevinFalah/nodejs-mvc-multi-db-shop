@@ -2,7 +2,7 @@ const Product = require("../models/product");
 const { formatDateIntl } = require("../util/func");
 
 exports.getProducts = (req, res, next) => {
-  Product.find()
+  Product.find().populate('userId', 'email') // <- populate the reference
     .then((products) => {
       res.render("shop/product-list", {
         prods: products,
