@@ -72,4 +72,5 @@ UserSchema.methods.reduceItemInCart = function (productId) {
         throw Error("Item not found!");
       }
 }
+
 module.exports = mongoose.model("User", UserSchema);
