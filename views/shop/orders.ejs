@@ -7,7 +7,7 @@
         <%- include('../includes/navigation.ejs') %>
         <main>
             <% if (orders.length <= 0) { %>
-                <h1>Nothing there!</h1>
+                <h1>Nothing here!</h1>
             <% } else { %>
                 <ul>
                     <% orders.forEach(order => { %>
@@ -19,7 +19,7 @@
                             </div>
                             <ul class="list">
                                 <% order.items.forEach(product => { %>
-                                    <li><%= product.title %> (qty: <%= product.quantity %>) <b>$<%= product.price * product.quantity %></b></li>
+                                    <li><%= product?.product.title %> (qty: <%= product.quantity %>) <b>$<%= product?.product.price * product.quantity %></b></li>
                                 <% }); %>
                             </ul>
                         </li>

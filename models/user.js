@@ -75,19 +75,24 @@ UserSchema.methods.reduceItemInCart = function (productId) {
   }
 };
 
+UserSchema.methods.clearCart = function () {
+  this.cart.items = [];
+  this.save();
+}
+
 UserSchema.methods.addOrder = function () {
-  const createdAt = new Date();
+  // const createdAt = new Date();
 
-  this.populate('cart.items.productId').then((user) => {
-    const cartItems = user.cart.items || [];
+  // this.populate('cart.items.productId').then((user) => {
+  //   const cartItems = user.cart.items || [];
 
-    const totalPrice = cartItems.reduce((sum, acc) => {
-    return sum + acc?.productId?.price * acc?.quantity;
-  }, 0);
+  //   const totalPrice = cartItems.reduce((sum, acc) => {
+  //   return sum + acc?.productId?.price * acc?.quantity;
+  // }, 0);
 
-  console.log(totalPrice, cartItems)
+  // console.log(totalPrice, cartItems)
 
-  return this
+  // return this
   // const orders = {
   //   items: products,
   //   user: {
@@ -106,7 +111,7 @@ UserSchema.methods.addOrder = function () {
   //   .updateOne({ _id: this._id }, { $set: { cart: { items: [] } } })
   //   .then(() => console.log("Success Add order"))
   //   .catch((err) => console.log(err));
-  })
+  // })
   
 };
 
